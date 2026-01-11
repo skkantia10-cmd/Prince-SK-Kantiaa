@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prince SK Kantia | Dark Portfolio</title>
+<style>
+  /* Basic Reset and font */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    color: #ccc;
+    scroll-behavior: smooth;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* Navbar */
+  nav {
+    position: fixed;
+    width: 100%;
+    top: 0; left: 0; right: 0;
+    background: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+    z-index: 100;
+    user-select: none;
+  }
+  nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 25px;
+  }
+  nav ul li {
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #bbb;
+    transition: color 0.3s ease;
+  }
+  nav ul li:hover, nav ul li.active {
+    color: #00bcd4;
+  }
+
+  /* Hero Section */
+  header {
+    position: relative;
+    height: 100vh;
+    background: url('your-photo.jpg') no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+    text-align: center;
+  }
+  header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(18,18,18,0.75);
+    z-index: 1;
+  }
+  header > * {
+    position: relative;
+    z-index: 2;
+  }
+  header h1 {
+    font-size: 4rem;
+    margin: 0;
+    letter-spacing: 7px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  header p.subtitle {
+    font-weight: 400;
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    margin-top: 15px;
+    color: #00bcd4;
+    font-style: italic;
+  }
+
+  /* Container */
+  .container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 20px 25px;
+    background-color: #1f1f1f;
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(0, 188, 212, 0.2);
+  }
+
+  /* Section Titles */
+  h2.section-title {
+    font-size: 2rem;
+    color: #00bcd4;
+    border-bottom: 3px solid #00bcd4;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    user-select: none;
+  }
+  
+  /* Toggle Rows */
+  .toggle-row {
+    background: #2a2a2a;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px #00bcd4a1;
+  }
+  .toggle-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #00bcd4;
+    user-select: none;
+  }
+  /* Hamburger lines */
+  .toggle-icon {
+    width: 28px;
+    height: 20px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+  }
+  .toggle-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #00bcd4;
+    border-radius: 5px;
+    opacity: 1;
+    left: 0;
+    transition: all 0.25s ease-in-out;
+  }
+  .toggle-icon span:nth-child(1) {
+    top: 0px;
+  }
+  .toggle-icon span:nth-child(2) {
+    top: 8px;
+  }
+  .toggle-icon span:nth-child(3) {
+    top: 16px;
+  }
+  /* Rotate on open */
+  .toggle-row.active .toggle-icon span:nth-child(1) {
+    top: 8px;
+    transform: rotate(135deg);
+  }
+  .toggle-row.active .toggle-icon span:nth-child(2) {
+    opacity: 0;
+  }
+  .toggle-row.active .toggle-icon span:nth-child(3) {
+    top: 8px;
+    transform: rotate(-135deg);
+  }
+
+  /* Toggle body content */
+  .toggle-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0 20px;
+    background: #121212;
+    color: #ccc;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .toggle-row.active .toggle-body {
+    max-height: 600px; /* large enough to show content */
+    padding: 15px 20px;
+  }
+
+  /* Contact info special styling */
+  .contact-info p {
+    margin: 8px 0;
+    font-size: 1.1rem;
+    color: #ddd;
+  }
+
+  /* Lists style */
+  ul {
+    list-style: none;
+    padding-left: 15px;
+  }
+  ul li {
+    margin-bottom: 8px;
+    color: #bbb;
+  }
+
+  /* Back to top button */
+  #backToTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #00bcd4;
+    color: #121212;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: 700;
+    box-shadow: 0 4px 15px #00bcd499;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+  }
+  #backToTopBtn:hover {
+    background-color: #0199aa;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 2.8rem;
+    }
+    nav ul {
+      gap: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="#home" class="nav-link">Home</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#summary" class="nav-link">Summary</a></li>
+    <li><a href="#education" class="nav-link">Education</a></li>
+    <li><a href="#skills" class="nav-link">Skills</a></li>
+    <li><a href="#projects" class="nav-link">Projects</a></li>
+    <li><a href="#languages" class="nav-link">Languages</a></li>
+  </ul>
+</nav>
+
+<header id="home">
+  <h1>Prince SK Kantia</h1>
+  <p class="subtitle">Get the Perfect World and Get Yours</p>
+</header>
+
+<div class="container">
+
+  <section id="contact" class="toggle-row">
+    <div class="toggle-header">
+      Contact Information
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body contact-info">
+      <p>📞 +92 348 3921302</p>
+      <p>✉️ skkantia10@gmail.com</p>
+      <p>📍 Hyderabad, Pakistan</p>
+    </div>
+  </section>
+
+  <section id="about" class="toggle-row">
+    <div class="toggle-header">
+      About Me
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <p>
+        I am a Pre-Engineering student with a strong knowledge of AI and web development. I have completed multiple online courses and certifications in AI, productivity, and programming. Skilled in Amazon FBA, mobile hardware & software, and data analysis. Passionate about learning and applying modern technologies.
+      </p>
+    </div>
+  </section>
+
+  <section id="summary" class="toggle-row">
+    <div class="toggle-header">
+      Summary
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <p>
+        Pre-Engineering student with strong knowledge of AI and web development. Completed multiple online courses and certifications in AI, productivity, and programming. Skilled in Amazon FBA, mobile hardware & software, and data analysis. Passionate about learning and applying modern technologies.
+      </p>
+    </div>
+  </section>
+
+  <section id="education" class="toggle-row">
+    <div class="toggle-header">
+      Education & Work Experience
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <p><strong>Education:</strong></p>
+      <ul>
+        <li>Government Boys Higher Secondary School (GBHSS), Phullahdyoon</li>
+        <li>Program: Pre-Engineering (12th Grade)</li>
+        <li>Expected Graduation: 2027</li>
+      </ul>
+      <p><strong>Work Experience:</strong></p>
+      <ul>
+        <li>Mobile Hardware & Software Technician</li>
+        <li>Hands-on experience repairing and troubleshooting mobile devices</li>
+        <li>Assisted in software updates and app installations</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills" class="toggle-row">
+    <div class="toggle-header">
+      Skills
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <ul>
+        <li><strong>Technical Skills:</strong> Web Development, Programming, AI Tools, Amazon FBA</li>
+        <li><strong>Soft Skills:</strong> Problem Solving, Time Management, Communication</li>
+        <li><strong>Other Skills:</strong> Mobile Hardware & Software</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects" class="toggle-row">
+    <div class="toggle-header">
+      Projects & Certifications
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <ul>
+        <li>Coursera & United Latino Students Association Certifications (Dec 2025)</li>
+        <li>Speed Up Data Analysis and Presentation Building – Credential ID: OQY7WXYFN4DG</li>
+        <li>Start Writing Prompts Like a Pro – Credential ID: 51EE90TXWYV3</li>
+        <li>Stay Ahead of the AI Curve – Credential ID: 3QER2G4UL14P</li>
+        <li>Use AI Responsibly – Credential ID: V8NTWOZMN5NP</li>
+        <li>Design Prompts for Everyday Work Tasks – Credential ID: DVYFJ62Q7XKS</li>
+        <li>Discover the Art of Prompting – Credential ID: RSP92U115Y00</li>
+        <li>Google Prompting Essentials – Credential ID: BB124KBN65Z9</li>
+        <li>Maximize Productivity With AI Tools – Credential ID: OQY7WXYFN4DG</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="languages" class="toggle-row">
+    <div class="toggle-header">
+      Languages
+      <div class="toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="toggle-body">
+      <ul>
+        <li>English – Fluent</li>
+        <li>Urdu – Fluent</li>
+        <li>Marwari – Fluent</li>
+        <li>Sindhi – Fluent</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<button id="backToTopBtn" title="Back to top">&#8679;</button>
+
+<footer style="background:#181818; padding: 15px; text-align:center; color:#444; user-select:none">
+  © 2024 Prince SK Kantia & Sawai. All rights reserved.
+</footer>
+
+<script>
+  // Toggle content on click
+  document.querySelectorAll('.toggle-row').forEach(section => {
+    section.querySelector('.toggle-header').addEventListener('click', () => {
+      section.classList.toggle('active');
+    });
+  });
+
+  // Back to top button show/hide
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', () => {
+    if(window.pageYOffset > 300) {
+      backToTopBtn.style.display = 'flex';
+    } else {
+      backToTopBtn.style.display = 'none';
+    }
+  });
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({top:0, behavior: 'smooth'});
+  });
+
+  // Highlight nav on scroll
+  const sections = ['home','contact','about','summary','education','skills','projects','languages'];
+  const navItems = document.querySelectorAll('nav ul li a');
+  
+  window.addEventListener('scroll', () => {
+    let scrollPos = window.scrollY + 80; // offset for navbar height
+    let currentSection = 'home';
+    for(let id of sections) {
+      const el = document.getElementById(id);
+      if(el && el.offsetTop <= scrollPos) currentSection = id;
+    }
+    navItems.forEach(item => {
+      item.parentElement.classList.toggle('active', item.getAttribute('href') === '#' + currentSection);
+    });
+  });
+</script>
+
+</body>
+</html>
